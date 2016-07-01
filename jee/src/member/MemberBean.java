@@ -42,6 +42,7 @@ public class MemberBean {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getName(){
 		return name;
 	}
@@ -62,6 +63,7 @@ public class MemberBean {
 	}
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
+		genderResult(ssn);
 	}
 	public int getAge() {
 		return age;

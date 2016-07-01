@@ -21,27 +21,32 @@ public class MemberController {
 	 * 
 	 */
 	public static void main(String[] args) {
-	    MemberServiceImpl service = new MemberServiceImpl();    
+	    MemberServiceImpl service = MemberServiceImpl.getInstance();   
 	        
 		while (true) {
 			
 			switch (JOptionPane.showInputDialog("1.등록 2.보기 3.수정 4.삭제 0.종료")) {
 			case "1":
+			MemberBean stu = new MemberBean();	
 			String spec = JOptionPane.showInputDialog("이름,아이디,비밀번호,주민번호 ex)880101-1");
 			String specArr[] = spec.split(",");
-			service.registStudent(specArr[0], specArr[1], specArr[2], specArr[3],
-					new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis()));
-			JOptionPane.showMessageDialog(null, "등록이 완료되었습니다.");
+			stu.setName(specArr[0]);
+			stu.setId(specArr[1]);
+			stu.setPw(specArr[2]);
+			stu.setSsn(specArr[3]);
+			stu.setRegDate(new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis()));
+			String result = service.regist(stu);
+			JOptionPane.showMessageDialog(null, result);
 			break;
 			case "2":
-				JOptionPane.showMessageDialog(null, service.showStudent());
+				JOptionPane.showMessageDialog(null, service.show());
 				break;
 			case "3":
 				String pwModify = JOptionPane.showInputDialog("새비밀번호를 입력하세요");
-				JOptionPane.showMessageDialog(null,service.updateStudent(pwModify));
+				JOptionPane.showMessageDialog(null,service.update(pwModify));
 				break;
 			case "4":
-				JOptionPane.showMessageDialog(null, service.deleteStudent());
+				JOptionPane.showMessageDialog(null, service.delete());
 				break;
 				
 			case "0": 

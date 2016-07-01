@@ -23,7 +23,7 @@ public class JDBCTest {
 		
 		List<String> list = new ArrayList<String>();
 		try {
-			Class.forName(Constants.ORACLE_DRIVER); // 
+			//Class.forName(Constants.ORACLE_DRIVER); // 
 			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PW);
 			st = con.createStatement();
 			rs = st.executeQuery(sql);

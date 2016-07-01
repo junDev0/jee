@@ -24,6 +24,11 @@ public class BankController {
 		BankService bkService = new BankServiceImpl();
 		List<AccountBean> list = new ArrayList<AccountBean>();
 		String bankResult ="";
+		try {
+			Class klass = Class.forName("bank.AccountBean");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		while (true) {
 			switch (JOptionPane.showInputDialog("1.개설. 2.입금 3.조회. 4.출금 5.통장내역 6.통장해지 -사용자"
 											+ "\n===================================\n"
