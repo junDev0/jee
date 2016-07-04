@@ -4,7 +4,9 @@
 package member;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -25,7 +27,11 @@ public class MemberController {
 	        
 		while (true) {
 			
-			switch (JOptionPane.showInputDialog("1.등록 2.보기 3.수정 4.삭제 0.종료")) {
+			switch (JOptionPane.showInputDialog("--- 회원이 보는 화면 --- \n"
+												+ "1.회원가입 2.로그인 3.내정보보기4.내정보수정(비번)5.탈퇴\n"
+												+ "--- 관리자화면 ---\n"
+												+ "11.회원목록 12.검색(ID) 13.검색(이름) 14.검색(성별) 15.회원수"
+												+"\n0.종료")) {
 			case "1":
 			MemberBean stu = new MemberBean();	
 			String spec = JOptionPane.showInputDialog("이름,아이디,비밀번호,주민번호 ex)880101-1");
@@ -38,15 +44,22 @@ public class MemberController {
 			String result = service.regist(stu);
 			JOptionPane.showMessageDialog(null, result);
 			break;
-			case "2":
+			case "2":break;
+			case "3":
 				JOptionPane.showMessageDialog(null, service.show());
 				break;
-			case "3":
-				String pwModify = JOptionPane.showInputDialog("새비밀번호를 입력하세요");
-				JOptionPane.showMessageDialog(null,service.update(pwModify));
-				break;
 			case "4":
-				JOptionPane.showMessageDialog(null, service.delete());
+				MemberBean stu2 = new MemberBean();	
+				String infoModify[] = JOptionPane.showInputDialog("변경할 아이디,새비밀번호를 입력하세요").split(",");
+				stu2.setId(infoModify[0]);
+				stu2.setPw(infoModify[1]);
+				JOptionPane.showMessageDialog(null,service.update(stu2));
+				break;
+			case "5":
+				MemberBean stu3 = new MemberBean();
+				String infoDel = JOptionPane.showInputDialog("삭제할 아이디를 입력하세요.");
+				stu3.setId(infoDel);
+				JOptionPane.showMessageDialog(null, service.delete(stu3));
 				break;
 				
 			case "0": 
@@ -55,7 +68,32 @@ public class MemberController {
 					return;
 				}
 				break;
-
+			case "11": 
+				List<MemberBean> list = service.show();
+				String listResult = "";
+				for (int i = 0; i < list.size(); i++) {
+					listResult += list.get(i).toString()+"\n";
+				}
+				JOptionPane.showMessageDialog(null, listResult);
+				break;	
+			case "12": 
+				String id = JOptionPane.showInputDialog("검색할 아이디 입력");
+				String idResult = service.findById(id);
+				JOptionPane.showConfirmDialog(null, idResult);
+				break;	
+			case "13": 
+				String name = JOptionPane.showInputDialog("검색할 이름 입력");
+				List<MemberBean> nameList = service.findByName(name);
+				String nameResult = "";
+				for (int i = 0; i < nameList.size(); i++) {
+					nameResult += nameList.get(i).toString()+"\n";
+				}
+				JOptionPane.showMessageDialog(null, nameResult);
+				break;	
+			case "14": break;	
+			case "15": 
+				JOptionPane.showMessageDialog(null, String.valueOf(service.count())+"명");
+				break;	
 			default: JOptionPane.showMessageDialog(null, "잘못된 입력입니다.");
 			break;
 			}

@@ -8,8 +8,17 @@ package grade;
  */
 public class GradeBean { //입력된것으 정
 	private int kor,eng,math;
-	private String name;
+	private String name,hakjum;
 
+	private static GradeBean instance = new GradeBean(); 
+	
+	public static GradeBean getInstance() {
+		return instance;
+	}
+
+	private GradeBean() {
+	}
+	
 	public GradeBean(String name,int kor, int eng, int math) {
 		this.name = name;
 		this.kor = kor;
@@ -41,6 +50,13 @@ public class GradeBean { //입력된것으 정
 	public String getName() {
 		return name;
 	}
+	
+	public String getHakjum() {
+		return hakjum;
+	}
+	public void setHakjum(String hakjum) {
+		this.hakjum = hakjum;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -49,7 +65,8 @@ public class GradeBean { //입력된것으 정
 		return "결과 [이름"+name+""
 				+ "\n국어=" + kor + "점 "
 				+ "\n영어=" + eng + "점 "
-				+ "\n수학=" + math + "점";
+				+ "\n수학=" + math + "점"
+				+ "\n학점=" + hakjum;
 	}
 	
 	

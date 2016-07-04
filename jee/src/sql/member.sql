@@ -8,7 +8,7 @@ create table member_bean(
 	age int
 	
 );
-
+select count(*) from member_bean;
 select * from member_bean;
 where id = 'you';
 

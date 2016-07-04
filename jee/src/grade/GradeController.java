@@ -5,6 +5,7 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 import javafx.scene.chart.PieChart.Data;
+import sun.security.jca.GetInstance;
 
 public class GradeController {
 		/**
@@ -16,24 +17,21 @@ public class GradeController {
 		 */
 		public static void main(String[] args) {
 			// --------------연산부 (알고리즘)-----------------------
-			GradeServiceImpl service = new GradeServiceImpl();
+			GradeService service = GradeServiceImpl.getInstance();
+			GradeBean bean = null;
 			while (true) {
-				switch (JOptionPane.showInputDialog("===성적기록부===\n 1.등록 2.종료")) {
+				switch (JOptionPane.showInputDialog("===성적기록부===\n "
+										+ "1.추가 2.수정 3.삭제 4.전체조회 5.학점조회 6.시퀀스조회 7.응시생수"
+										+ "0.종료")) {
 				case "1":
+					
 					String stData[] = JOptionPane.showInputDialog("이름,국어,영어,수학").split(",");
-					int ok = service.gradeCheck(Integer.parseInt(stData[1]),Integer.parseInt(stData[2]) //점수오버 체크 
-												,Integer.parseInt(stData[3]));
-					if(ok==1){ //점수체크 분기
-						JOptionPane.showMessageDialog(null, "1이상 100이하의 점수만 입력하세요.");
-						continue;
-					}
-					service.gradeInit(stData[0], Integer.parseInt(stData[1]), //이름 각 점수별 세팅 
+					bean = new GradeBean(stData[0], Integer.parseInt(stData[1]), 
 							Integer.parseInt(stData[2]), Integer.parseInt(stData[3]));
-					service.gradeTotal(); // 토탈점수
-					service.gradeAvg(); // 평균점수
-					JOptionPane.showMessageDialog(null, service.gradeResult(service.gradeRank())); //학점 계산 및 출력
+					JOptionPane.showMessageDialog(null, service.insert(bean)); //학점 계산 및 출력
 					break;
-				case "2":JOptionPane.showConfirmDialog(null, "종료하시겠습니까?");return;
+				case "2": break;
+				case "0":JOptionPane.showConfirmDialog(null, "종료하시겠습니까?");return;
 
 				default:
 					break;
