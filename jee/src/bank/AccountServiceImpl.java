@@ -3,6 +3,10 @@
  */
 package bank;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @date     : 2016. 6. 20.
  * @author   : jun.dev
@@ -10,50 +14,94 @@ package bank;
  * @story    : 계좌 인터페이스
  */
 public class AccountServiceImpl implements AccountService {
-	//1.개설 2.입금 3.조회. 4.출금 5.통장내역 6.통장해지 0.종료
-	AccountBean account;
+
+	AccountDAO dao = AccountDAO.getInstance();
+	private static AccountService instance = new AccountServiceImpl();
+	private Map map;
 	
-	//1.개설
-	@Override
-	public void openAccount(String name, String id, String pw) {
-		account = new AccountBean(name,id,pw);
+	public static AccountService getInstance() {
+		return instance;
+	}
 
+	private AccountServiceImpl() {
 	}
-	//2.입금
+	
 	@Override
-	public void deposit(int input) {
-		int money = account.getMoney();
-		money += input;
-		account.setMoney(money);
-
-	}
-	//3.조회
-	@Override
-	public String findAccount() {
-		return String.valueOf(account.getMoney());
-	}
-	//4.출금.
-	@Override
-	public String withdraw(int output) {
-		String result = "잔액부족입니다.";
-		int money = account.getMoney()+1000;
-		if(output <= money){
-			money-=output;
-			account.setMoney(money);
-			result = "출금후 잔액 "+money+"원입니다.";
+	public String openAccount(AccountMemberBean bean) {
+		int succ = dao.openAccount(bean);
+		String result = "계좌개설을 실패하였습니다.";
+		if(succ == 1){
+			result = "계좌개설 성공";
 		}
 		return result;
 	}
-	//5.통장내역
+
 	@Override
-	public String showAccount() {
-		return account.toString();
+	public String deposit(AccountMemberBean bean) {
+		int succ = dao.deposit(bean);
+		String result = "입금 실패";
+		if(succ == 1){
+			result = "입금이 완료되었습니다.";
+		}
+		return result;
 	}
-	//6.통장해지
 	@Override
-	public String deleteAccount() {
-		account = null;
-		return "해지되었습니다.";
+	public AccountMemberBean findByAcc(AccountMemberBean bean) {
+		return dao.basicAccount(bean);
 	}
+	@Override
+	public String withdraw(AccountMemberBean bean) {
+		return 	dao.withdraw(bean);
+	}
+	@Override
+	public String deleteAccount(AccountMemberBean bean) {
+		return dao.deleteAccount(bean);
+	}
+
+	@Override
+	public String updateAccount(AccountMemberBean bean) {
+		return dao.updateAccount(bean);
+	}
+
+
+	@Override
+	public List<?> accountList() {
+		return dao.totalAccount();
+	}
+
+
+	@Override
+	public List<AccountMemberBean> findByName(String name) {
+		return dao.findByName(name);
+	}
+
+	@Override
+	public int count() {
+		return dao.count();
+	}
+
+
+	@Override
+	public Map<?,?> map() {
+		map = new HashMap<String,AccountMemberBean>();
+		map = dao.selectMap();
+		return map;
+	}
+
+	@Override
+	public List<?> list() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<?> findBy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
 
 }

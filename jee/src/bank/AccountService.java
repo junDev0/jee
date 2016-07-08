@@ -3,24 +3,38 @@
  */
 package bank;
 
+import java.util.List;
+import java.util.Map;
+
+import global.CommonService;
+
 /**
  * @date     : 2016. 6. 20.
  * @author   : jun.dev
  * @fileName : AccountService.java
  * @story    : 
  */
-public interface AccountService {
+public interface AccountService extends CommonService{
 	//1.개설 2.입금 3.조회. 4.출금 5.통장내역 6.통장해지 0.종료
+	
 	//1.개설
-	public abstract void openAccount(String name,String id,String pw);
+	public String openAccount(AccountMemberBean bean);
 	//2.입금
-	public abstract void deposit(int input);
-	//3.조회
-	public abstract String findAccount();
-	//4.출금
-	public abstract String withdraw(int output);
-	//5.통장내역
-	public abstract String showAccount();
-	//6.통장해지
-	public abstract String deleteAccount();
+	public String deposit(AccountMemberBean bean);
+	//3.출금
+	public String withdraw(AccountMemberBean bean);
+	//4.수정(사용자의 요청에 의해 비번만 수정가능) 계좌번호,비밀번호 받는 조건
+	public String updateAccount(AccountMemberBean bean);
+	//5.통장해지
+	public String deleteAccount(AccountMemberBean bean);
+	// 6.조회(전체 조회)
+	public List<?> accountList();
+	//7.개인계좌조회(계좌번호)
+	public AccountMemberBean findByAcc(AccountMemberBean bean);
+	//8.조회(이름)
+	public List<AccountMemberBean> findByName(String name);
+	//9.조회(전체통장수)
+	public int count();
+	public Map<?, ?> map();
+
 }

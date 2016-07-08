@@ -1,4 +1,4 @@
-package bank;
+package bank2;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -31,7 +31,7 @@ public class BankDAO {
 		String sqldrop = "drop table account";
 		try {
 			Class.forName(Constants.ORACLE_DRIVER);
-			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PW);
+			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.USER_ID, Constants.USER_PW);
 			stmt = con.createStatement();
 			updateResult = stmt.executeUpdate(sql);
 		} catch (Exception e) {

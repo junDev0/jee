@@ -55,7 +55,7 @@ public class MemberDAO {
 		int updateResult = 0;
 		try {
 			Class.forName(Constants.ORACLE_DRIVER);
-			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PW);
+			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.USER_ID, Constants.USER_PW);
 			stmt = con.createStatement();
 			updateResult = stmt.executeUpdate(sql);
 			System.out.println(updateResult);
@@ -70,7 +70,7 @@ public class MemberDAO {
 		List <MemberBean> list = new ArrayList<MemberBean>();
 		try {
 			Class.forName(Constants.ORACLE_DRIVER);
-			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PW);
+			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.USER_ID, Constants.USER_PW);
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()){
@@ -88,7 +88,7 @@ public class MemberDAO {
 		MemberBean bean = null;
 		try {
 			Class.forName(Constants.ORACLE_DRIVER);
-			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PW);
+			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.USER_ID, Constants.USER_PW);
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()){
@@ -107,7 +107,7 @@ public class MemberDAO {
 		List <MemberBean> list = new ArrayList<MemberBean>();
 		try {
 			Class.forName(Constants.ORACLE_DRIVER);
-			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PW);
+			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.USER_ID, Constants.USER_PW);
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()){
@@ -124,7 +124,7 @@ public class MemberDAO {
 		int count = 0;
 		try {
 			Class.forName(Constants.ORACLE_DRIVER);
-			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.ORACLE_ID, Constants.ORACLE_PW);
+			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.USER_ID, Constants.USER_PW);
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 	        if(rs.next()) count = rs.getInt("count");

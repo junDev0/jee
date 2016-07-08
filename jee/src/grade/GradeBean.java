@@ -7,67 +7,103 @@ package grade;
  * @story    : 
  */
 public class GradeBean { //입력된것으 정
-	private int kor,eng,math;
-	private String name,hakjum;
+	private String seq,id,grade,examDate;
+	private int java,sql,html,javascript;
 
-	private static GradeBean instance = new GradeBean(); 
-	
-	public static GradeBean getInstance() {
-		return instance;
-	}
 
-	private GradeBean() {
+	public GradeBean(String id,int java, int sql, int html, int javascript, String examDate) {
+		this.id = id;
+		this.java = java;
+		this.sql = sql;
+		this.html = html;
+		this.javascript = javascript;
+		this.examDate = examDate;
 	}
-	
-	public GradeBean(String name,int kor, int eng, int math) {
-		this.name = name;
-		this.kor = kor;
-		this.eng = eng;
-		this.math = math;
+	public GradeBean(String seq,String grade,String id,int java, int sql, int html, int javascript, String examDate) {
+		this.seq = seq;
+		this.grade = grade;
+		this.id = id;
+		this.java = java;
+		this.sql = sql;
+		this.html = html;
+		this.javascript = javascript;
+		this.examDate = examDate;
 	}
-	public void setKor(int kor) {
-		this.kor = kor;
+	public GradeBean() {
+		// TODO Auto-generated constructor stub
 	}
-	public void setEng(int eng) {
-		this.eng = eng;
-	}
-	public void setMath(int math) {
-		this.math = math;
-	}
-	public void setName(String name) {
-		this.name = name;
+	public String getSeq() {
+		return seq;
 	}
 
-	public int getKor() {
-		return kor;
+	public void setSeq(String seq) {
+		this.seq = seq;
 	}
-	public int getEng() {
-		return eng;
+
+	public int getJava() {
+		return java;
 	}
-	public int getMath() {
-		return math;
+
+	public void setJava(int java) {
+		this.java = java;
 	}
-	public String getName() {
-		return name;
+
+	public int getSql() {
+		return sql;
+	}
+
+	public void setSql(int sql) {
+		this.sql = sql;
+	}
+
+	public int getHtml() {
+		return html;
+	}
+
+	public void setHtml(int html) {
+		this.html = html;
+	}
+
+	public int getJavascript() {
+		return javascript;
+	}
+
+	public void setJavascript(int javascript) {
+		this.javascript = javascript;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
 	
-	public String getHakjum() {
-		return hakjum;
+	
+
+	public String getExamDate() {
+		return examDate;
 	}
-	public void setHakjum(String hakjum) {
-		this.hakjum = hakjum;
+	public void setExamDate(String examDate) {
+		this.examDate = examDate;
 	}
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "결과 [이름"+name+""
-				+ "\n국어=" + kor + "점 "
-				+ "\n영어=" + eng + "점 "
-				+ "\n수학=" + math + "점"
-				+ "\n학점=" + hakjum;
+		return "GradeBean [No."+seq+" ,아이디=" + id + ", 학점=" + grade + "\n 자바=" + java + ", SQL=" + sql + ", HTML5=" + html
+				+ ", 자바스크립트=" + javascript + "]";
 	}
+
+
+	
 	
 	
 	
