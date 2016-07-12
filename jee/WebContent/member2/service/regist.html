@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<link rel="stylesheet" href="../../css/member.css"/>
+<style>
+span {
+	font-size: 110%;
+	color: blue;
+	border: 1px solid black;
+}
+
+
+div.joinDiv {
+	border: 3px solid powderblue; padding : 30px; margin : 0 auto;
+	width: 80%;
+	margin: 10px 10px;
+	padding: 30px;
+	margin: 0 auto;
+}
+#member_join{border: 1px solid black; width: 70%; height: 200px; margin: 0 auto; border-collapse: collapse; }
+#member_join tr{border: 1px solid black;height: 20%}
+#member_join td{border: 1px solid black;}
+	.font{font-weight: bold;color: white;}
+	.bg_color{background-color:blue}
+</style>
+</head>
+<body>
+<object width="100%" height="500px" data="../../global/school_info.html"></object>
+
+	<div class="box">	
+		<h2>회원가입 페이지</h2>
+		<br />
+		<!-- id,pw,name,ssn-->
+<!-- 		<div class="joinDiv">아이디 : hong</div>
+		<div class="joinDiv">이름 : 홍길동</div>
+		<div class="joinDiv">비밀번호 : 1234</div>
+		<div class="joinDiv">주민번호 : 881010-1</div> -->
+		<table id = "member_join">
+			<tr>
+				<td style="width: 20%;" class="font bg_color">ID</td>
+				<td>hong</td>
+			</tr>
+			<tr>
+				<td class="font bg_color">PW</td>
+				<td>123</td>
+			</tr>
+			<tr>
+				<td class="font bg_color">이름</td>
+				<td>홍길동</td>
+			</tr>
+			<tr>
+				<td class="font bg_color">주민번호</td>
+				<td>881010-1</td>
+			</tr>
+
+		</table>
+		
+
+		
+			<a href="../memberController.html"><img src="../../img/user.jpg" alt="user" style="width: 30px"/></a>
+			<a href="../../index.html"><img src="../../img/home.png" alt="home" style="width: 30px"/></a>
+
+	</div>
+</body>
+</html>

@@ -12,9 +12,8 @@ import java.text.SimpleDateFormat;
  * @story    : 
  */
 public class MemberBean {
-	private String id,pw,name,regDate,gender,ssn;
+	private String id,pw,name,regDate,gender,ssn,profileImg;
 	private int age;
-	
 
 	public MemberBean(String name,String id, String pw,  String ssn,String regDate) {
 		this.name = name;
@@ -72,6 +71,12 @@ public class MemberBean {
 		this.age = age;
 	}
 	
+	public String getProfileImg() {
+		return profileImg;
+	}
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
+	}
 	public void genderResult(String ssn){ //주민번호를 파라미터로 받아 나이 및 성별을 구하는 메소드
 		/*
 		ssn = ssn.substring(7);
