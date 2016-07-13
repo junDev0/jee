@@ -1,4 +1,4 @@
-package test;
+package test2;
 
 /**
  * @date     : 2016. 7. 1.
