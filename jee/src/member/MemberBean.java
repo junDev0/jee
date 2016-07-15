@@ -12,17 +12,30 @@ import java.text.SimpleDateFormat;
  * @story    : 
  */
 public class MemberBean {
-	private String id,pw,name,regDate,gender,ssn,profileImg;
+	private String id,pw,name,regDate,gender,ssn,profileImg,email;
 	private int age;
 
-	public MemberBean(String name,String id, String pw,  String ssn,String regDate) {
+	public MemberBean(String name,String id, String pw,  String ssn,String regDate,String email,String profileImg) {
 		this.name = name;
 		this.id = id;
 		this.pw = pw;
 		this.ssn = ssn;
 		this.regDate =regDate;
+		this.email = email;
+		this.profileImg = profileImg;
 		genderResult(ssn); //성별, 나이 계산
 	}
+	public void JspBean(String name,String id, String pw,  String ssn,String email,String profileImg) {
+		this.name = name;
+		this.id = id;
+		this.pw = pw;
+		this.ssn = ssn;
+		this.email = email;
+		this.profileImg = profileImg;
+		this.regDate =new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
+		genderResult(ssn); //성별, 나이 계산
+	}
+	
 	public MemberBean() {
 		// TODO Auto-generated constructor stub
 	}
@@ -76,6 +89,13 @@ public class MemberBean {
 	}
 	public void setProfileImg(String profileImg) {
 		this.profileImg = profileImg;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public void genderResult(String ssn){ //주민번호를 파라미터로 받아 나이 및 성별을 구하는 메소드
 		/*

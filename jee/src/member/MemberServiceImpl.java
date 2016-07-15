@@ -6,6 +6,9 @@ package member;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import bank.AccountService;
+import bank.AccountServiceImpl;
+
 /**
  * @date     : 2016. 6. 17.
  * @author   : jun.dev
@@ -15,8 +18,9 @@ import java.util.List;
 public class MemberServiceImpl implements MemberService{
 	MemberBean st = new MemberBean();
 	MemberDAO dao = MemberDAO.getInstance(); //싱글톤 패턴
+	AccountService accService = AccountServiceImpl.getInstance();
 	private static MemberServiceImpl instance = new MemberServiceImpl();
-	
+	MemberBean session;
 	
 	public static MemberServiceImpl getInstance() {
 		return instance;
@@ -29,9 +33,8 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public String regist(MemberBean bean) {
 		String msg = "";
-		
-		int result = dao.insert(bean);
-		if(result == 1){
+		boolean result = dao.insert(bean);
+		if(result == true){
 			msg = "회원가입 축하합니다.";
 		}else{
 			msg = "회원가입 실패";
@@ -42,23 +45,31 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public List<MemberBean> show() {
+		
 		return dao.list();
 	}
 
 	@Override
 	public String update(MemberBean bean) {
-		String result = "계정을 먼저 만들어주세요";
+		String result = "";
+		if(session !=null){
+			bean.setId(session.getId());
 		if(dao.infoUpdate(bean) == 1){
-		result = "비밀번호 수정이 완료되었습니다.";
+		result = "내정보 수정이 완료되었습니다.";
 		}
+		}
+		System.out.println(result);
 		return result;
 	}
 
 	@Override
 	public String delete(MemberBean bean) {
-		String result = "계정을 먼저 만들어주세요";
+		String result = "";
+		if(session !=null){
+			bean.setId(session.getId());
 		if(dao.infoDelete(bean) == 1){
 		result = "계정 삭제가 완료되었습니다.";
+		}
 		}
 		return result;
 	}
@@ -82,10 +93,11 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public String findById(String id) {
-		String result = "해당 아이디가 없습니다.";
+	public MemberBean findById(String id) {
+		MemberBean result = new MemberBean();
 		if(dao.findById(id)!=null){
-			result = dao.findById(id).toString();
+			result = dao.findById(id);
+			accService.map();
 		}
 		return result;
 	}
@@ -93,7 +105,34 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<MemberBean> findByName(String name) {
 		return dao.findByName(name);
+	}
+
+	@Override
+	public String login(MemberBean bean) {
+		String result = "";
+		if (dao.login(bean)) {
+			result = bean.getId();
+			session = dao.findById(bean.getId());
+			accService.map();
+		}else{
+			result = "로그인실패";
+		}
+	
+	return result;
+	}
+	@Override
+	public MemberBean findBy() {
+		if(session != null){
+			return this.findById(session.getId());
+		}
+		return null;
+	}
+
+	@Override
+	public int findByGen(String gender) {
+		return dao.genCount(gender);
 	}		
+
 
 
 }

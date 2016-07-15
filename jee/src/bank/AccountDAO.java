@@ -87,6 +87,7 @@ public class AccountDAO {
 				checkBean.setAge(rs.getInt("age"));
 			}
 		} catch (Exception e) {
+			
 		}
 		
 		return checkBean;
@@ -274,7 +275,7 @@ public class AccountDAO {
 					am.setMoney(rs.getInt("MONEY"));
 					am.setName(rs.getString("NAME"));
 					am.setPw(rs.getString("PW"));
-					am.setRegDate(rs.getString("REG_DATE"));
+					am.setRegDate(rs.getString("regDate"));
 					am.setSsn(rs.getString("SSN"));
 					map.put(String.valueOf(am.getAccountNO()), am);
 				}

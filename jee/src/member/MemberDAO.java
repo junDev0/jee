@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import global.Constants;
+import grade.DatabaseFactory;
+import grade.Vendor;
 
 /**
  * @date     : 2016. 7. 1.
@@ -30,22 +32,48 @@ public class MemberDAO {
 	}
 
 	private MemberDAO() {
+		con = DatabaseFactory.createDatebase(Vendor.ORACLE,Constants.USER_ID, Constants.USER_PW	).getConnection();
+
 	}
-	
-	public int insert(MemberBean bean){
+/*	public int insert(MemberBean bean){
+		System.out.println(bean.toString());
 		String sql = "insert into member_bean "
 				+ "values('"+bean.getId()+"','"+bean.getPw()+"','"+bean.getName()+"','"+bean.getRegDate()+"',"
 						+ "'"+bean.getGender()+"',"+"'"+bean.getSsn()+"','"+bean.getAge()+"')";
 		return this.exeUpdate(sql);
+	}	*/
+
+	public boolean insert(MemberBean bean){
+		System.out.println(bean.toString());
+		String sql = "insert into member_bean values(?,?,?,?,?,?,?)";
+		int count = 0;
+		boolean result = false;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bean.getId());
+			pstmt.setString(2, bean.getPw());
+			pstmt.setString(3, bean.getName());
+			pstmt.setString(4, bean.getRegDate());
+			pstmt.setString(5, bean.getGender());
+			pstmt.setString(6, bean.getSsn());
+			pstmt.setInt(7, bean.getAge());
+			count = pstmt.executeUpdate();
+			System.out.println(count);
+		} catch (Exception e) {
+		}
+		if(count == 1){
+			result = true;
+		}
+		return result;
 	}
 	public int infoUpdate(MemberBean bean){
-		String sql = "update member_bean set pw = '"+bean.getPw()+"'"
-					+ " where id ='"+bean.getId()+"'";
+		String sql = "update member_bean set pw = '"+bean.getPw()+"', email = '"+bean.getEmail()
+					+ "' where id ='"+bean.getId()+"'";
 		return this.exeUpdate(sql);
 		
 	}
 	public int infoDelete(MemberBean bean){
-		String sql = "delete from member_bean where id = '"+bean.getId()+"'";
+		String sql = "delete from member_bean where id = '"+bean.getId()+"' and pw='"+bean.getPw()+"'";
 		return this.exeUpdate(sql);
 		
 	}
@@ -54,8 +82,6 @@ public class MemberDAO {
 	public int exeUpdate(String sql) {
 		int updateResult = 0;
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.USER_ID, Constants.USER_PW);
 			stmt = con.createStatement();
 			updateResult = stmt.executeUpdate(sql);
 			System.out.println(updateResult);
@@ -69,13 +95,12 @@ public class MemberDAO {
 		String sql = "select * from member_bean";
 		List <MemberBean> list = new ArrayList<MemberBean>();
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.USER_ID, Constants.USER_PW);
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()){
 				list.add(new MemberBean(rs.getString("name"), rs.getString("id"),
-										rs.getString("pw"), rs.getString("ssn"), rs.getString("regDate")));
+										rs.getString("pw"), rs.getString("ssn"), 
+										rs.getString("regDate"),rs.getString("email"),rs.getString("profile_img")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,13 +112,11 @@ public class MemberDAO {
 		String sql = "select * from member_bean where id ='"+id+"'";
 		MemberBean bean = null;
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.USER_ID, Constants.USER_PW);
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()){
 				bean = new MemberBean(rs.getString("name"), rs.getString("id"), 
-									  rs.getString("pw"), rs.getString("ssn"), rs.getString("regDate"));
+									  rs.getString("pw"), rs.getString("ssn"), rs.getString("regDate"),rs.getString("email"),rs.getString("profile_img"));
 			}
 			 
 		} catch (Exception e) {
@@ -106,13 +129,11 @@ public class MemberDAO {
 		String sql = "select * from member_bean where name ='"+name+"'";
 		List <MemberBean> list = new ArrayList<MemberBean>();
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.USER_ID, Constants.USER_PW);
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()){
 				list.add(new MemberBean(rs.getString("name"), rs.getString("id"),
-										rs.getString("pw"), rs.getString("ssn"), rs.getString("regDate")));
+										rs.getString("pw"), rs.getString("ssn"), rs.getString("regDate"),rs.getString("email"),rs.getString("profile_img")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,8 +144,6 @@ public class MemberDAO {
 		String sql = "select count(*) as count from member_bean";
 		int count = 0;
 		try {
-			Class.forName(Constants.ORACLE_DRIVER);
-			con = DriverManager.getConnection(Constants.ORACLE_URL, Constants.USER_ID, Constants.USER_PW);
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 	        if(rs.next()) count = rs.getInt("count");
@@ -134,4 +153,49 @@ public class MemberDAO {
 		}
 		return count;
 	}
+	public int genCount(String gender){
+		String sql = "select count(*) as count from member_bean where gender = ?";
+		int count = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, gender);
+			rs = pstmt.executeQuery();
+	        if(rs.next()) count = rs.getInt("count");
+			 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}	
+	public boolean login(MemberBean param) {
+		boolean loginOk= false;
+		if(param.getId()!=null&& param.getPw()!=null&&this.existId(param.getId())==true){
+			MemberBean member = this.findById(param.getId());
+			if(member.getPw().equals(param.getPw())){
+				loginOk = true;
+			}	
+		}
+		
+		return loginOk;
+	}
+	public boolean existId(String id){
+		boolean existOK = false;
+		int result=0;
+		String sql = "select count(*) as count from member_bean where id = ?";
+				try {
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, id);
+					rs = pstmt.executeQuery();
+					if(rs.next()){
+						result = rs.getInt("count");
+						System.out.println("ID 카운트 결과:"+result);
+					}
+				} catch (Exception e) {
+				}
+				if(result ==1){
+					existOK = true;
+				}
+		return existOK;
+	}
+	
 }

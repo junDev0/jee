@@ -13,10 +13,13 @@ import java.util.List;
  */
 public interface MemberService {
 	public String regist(MemberBean bean);
+	public MemberBean findBy();
 	public List<MemberBean> show();
 	public String update(MemberBean bean); //pw만 수정가능
 	public String delete(MemberBean bean);
 	public int count();
-	public String findById(String id);
+	public MemberBean findById(String id);
 	public List<MemberBean> findByName(String name);
+	public int findByGen(String gender);
+	public String login(MemberBean bean);
 }

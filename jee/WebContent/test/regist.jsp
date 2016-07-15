@@ -20,6 +20,7 @@ div.joinDiv {
 	margin: 10px 10px;
 	padding: 30px;
 	margin: 0 auto;
+	text-align: center
 }
 </style>	
 </head>

@@ -44,15 +44,22 @@ public class MemberController {
 			String result = service.regist(stu);
 			JOptionPane.showMessageDialog(null, result);
 			break;
-			case "2":break;
+			case "2":
+				MemberBean stu4 = new MemberBean();
+				String input4 = JOptionPane.showInputDialog("ID,PW");
+				String[]inputArr4 = input4.split(",");
+				stu4.setId(inputArr4[0]);
+				stu4.setPw(inputArr4[1]);
+				String result4 = service.login(stu4);
+				JOptionPane.showMessageDialog(null, result4);
+				break;
 			case "3":
-				JOptionPane.showMessageDialog(null, service.show());
+				JOptionPane.showMessageDialog(null, service.findBy());
 				break;
 			case "4":
 				MemberBean stu2 = new MemberBean();	
-				String infoModify[] = JOptionPane.showInputDialog("변경할 아이디,새비밀번호를 입력하세요").split(",");
-				stu2.setId(infoModify[0]);
-				stu2.setPw(infoModify[1]);
+				String infoModify[] = JOptionPane.showInputDialog("기존 비밀번호,새비밀번호를 입력하세요").split(",");
+				stu2.setPw(infoModify[0]);
 				JOptionPane.showMessageDialog(null,service.update(stu2));
 				break;
 			case "5":
@@ -78,7 +85,7 @@ public class MemberController {
 				break;	
 			case "12": 
 				String id = JOptionPane.showInputDialog("검색할 아이디 입력");
-				String idResult = service.findById(id);
+				String idResult = service.findById(id).toString();
 				JOptionPane.showConfirmDialog(null, idResult);
 				break;	
 			case "13": 
