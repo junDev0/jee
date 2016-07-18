@@ -25,13 +25,12 @@ public class MemberBean {
 		this.profileImg = profileImg;
 		genderResult(ssn); //성별, 나이 계산
 	}
-	public void JspBean(String name,String id, String pw,  String ssn,String email,String profileImg) {
+	public void JspBean(String name,String id, String pw,  String ssn,String email) {
 		this.name = name;
 		this.id = id;
 		this.pw = pw;
 		this.ssn = ssn;
 		this.email = email;
-		this.profileImg = profileImg;
 		this.regDate =new SimpleDateFormat("yyyy-MM-dd").format(System.currentTimeMillis());
 		genderResult(ssn); //성별, 나이 계산
 	}

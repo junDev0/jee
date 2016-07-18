@@ -7,33 +7,23 @@
 <jsp:include page="../../global/top.jsp"/>	
 <jsp:include page="../../global/header.jsp"/>	
 <jsp:include page="../../global/navi.jsp"/>
-<style type="text/css">
-iframe.ifrm {
-	border: none;
-	width: 400px;
-	height: 400px;
-}
-</style>
-
-	<div class="box">
-	<h2>내정보검색</h2><br/>
-	<%
+<%
 	MemberService service = MemberServiceImpl.getInstance();
-	MemberBean result = service.findBy();	
-		if(result == null){
-			%>
-			<h2>로그인을 해주세요</h2>
-			<a href="<%=ctx %>/member/service/login.jsp">로그인 하러가기</a>
-			<%
-		}else{
-			%>
-			<%=result %>
-	<br/><a href="<%=ctx %>/member/main.jsp"><img src="<%=ctx %>/img/user.jpg" alt="user" style="width: 30px"/></a>
-			<% 
-		}
-	
+	MemberBean bean = new MemberBean();
+
 %>
+<div class="box">
+
+	<form action="<%=ctx %>/member/result/logout_result.jsp" method="post">
+		<input type="hidden" name="<%=service.findBy().getId()%>"/><br/>
+		<input type="hidden" name="<%=service.findBy().getPw()%>"/><br/>
+		<input type="submit" value="로그아웃"/>
+  		<input type="reset" value="취소"/>
+	</form>
+	
+		<br/><a href="<%=ctx %>/index.jsp"><img src="<%=ctx %>/img/home.png" alt="home" style="width: 30px"/></a>
 
 	</div>
+	
 <jsp:include page = "../../global/footer.jsp"/>
 <jsp:include page = "../../global/end.jsp"/>

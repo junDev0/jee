@@ -45,7 +45,7 @@ public class MemberDAO {
 
 	public boolean insert(MemberBean bean){
 		System.out.println(bean.toString());
-		String sql = "insert into member_bean values(?,?,?,?,?,?,?)";
+		String sql = "insert into member_bean(id,pw,name,regDate,gender,ssn,age,email) values(?,?,?,?,?,?,?,?)";
 		int count = 0;
 		boolean result = false;
 		try {
@@ -57,6 +57,7 @@ public class MemberDAO {
 			pstmt.setString(5, bean.getGender());
 			pstmt.setString(6, bean.getSsn());
 			pstmt.setInt(7, bean.getAge());
+			pstmt.setString(8, bean.getEmail());
 			count = pstmt.executeUpdate();
 			System.out.println(count);
 		} catch (Exception e) {

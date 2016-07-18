@@ -1,17 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
 <%@page import="java.util.*"%>
-
-    
-        <%
-    String ctx = application.getContextPath();
-    %>
-<!doctype html>
-<html lang="en">
-<link rel="stylesheet" href="<%=ctx %>/css/member.css"/>
-<head>
-	<meta charset="UTF-8" />
-	<title>회원가입</title>
+<% String ctx = application.getContextPath();%>
+<jsp:include page="../../global/top.jsp"/>	
+<jsp:include page="../../global/header.jsp"/>	
 <style type="text/css">
 span.meta {
 	width: 200px;
@@ -25,31 +17,20 @@ border: 1px dotted gray;
 width: 80%;
 margin: 10px 50px 10px 50px;
 }
-</style>	
-</head>
-<body>
+</style>
 	<div class="box">
 	<form action="<%=ctx %>/member/result/regist_result.jsp" method="post">
 		<span class="meta">이름</span> <input type="text" name="name"/><br/>
 		<span class="meta">ID</span><input type="text" name="id"/><br/>
 		<span class="meta">비밀번호</span><input type="text" name="pw"/><br/>
-		<span class="meta">SSN</span><input type="text" name="ssn"/><br/>
-<!-- 		<span class="meta">전공</span> <br/>
-		<input type="radio" name="major" value="computer" checked="checked">컴공학부
-		<input type="radio" name="major" value="mgmt">경영학부
-		<input type="radio" name="major" value="math">수학부
-		<input type="radio" name="major" value="enf">영문학부<br/>
-  		<span class="meta">수강과목</span> 
-		<input type="checkbox" name="subject" value="java"/>Java
-		<input type="checkbox" name="subject" value="sql"/>SQL
-		<input type="checkbox" name="subject" value="cpp"/>C++
-		<input type="checkbox" name="subject" value="python"/>파이썬
-		<input type="checkbox" name="subject" value="delphi"/>델파이
-		<input type="checkbox" name="subject" value="html"/>HTML<br/> -->
+		<span class="meta">email</span><input type="text" name="email"/><br/>
+		<span class="meta">SSN</span><input type="text" name="ssn"/><br/><br/>
+
 		<input type="submit" value="회원가입"/>
   		<input type="reset" value="취소"/>
 	</form>
+		<br/><a href="<%=ctx %>/index.jsp"><img src="<%=ctx %>/img/home.png" alt="home" style="width: 30px"/></a>
 	
   		</div>
-</body>
-</html>
+<jsp:include page = "../../global/footer.jsp"/>
+<jsp:include page = "../../global/end.jsp"/>

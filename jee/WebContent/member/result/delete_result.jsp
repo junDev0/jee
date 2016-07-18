@@ -4,15 +4,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
-    
-<!doctype html>
 <% String ctx = application.getContextPath(); %>
-<link rel="stylesheet" href="<%=ctx %>/css/member.css"/>
-<html lang="en">
-
-<head>
-	<meta charset="UTF-8" />
-	<title>Document</title>
+<jsp:include page="../../global/top.jsp"/>	
+<jsp:include page="../../global/header.jsp"/>	
 <style type="text/css">
 span.meta {
 	width: 200px;
@@ -20,8 +14,7 @@ span.meta {
 	float:left
 }
 </style>
-</head>
-<body>
+
 <div class="box">
 <%
 	MemberService service = MemberServiceImpl.getInstance();
@@ -52,5 +45,5 @@ span.meta {
 %>
 	
   		</div>
-</body>
-</html>
+<jsp:include page = "../../global/footer.jsp"/>
+<jsp:include page = "../../global/end.jsp"/>

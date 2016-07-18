@@ -3,36 +3,24 @@
 <%@page import="member.MemberService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-    String ctx = application.getContextPath();
-    %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>회원 상세 정보</title>
-<link rel="stylesheet" href="<%=ctx %>/css/member.css"/>
+<%String ctx = application.getContextPath();%>
+<jsp:include page="../../global/top.jsp"/>	
+<jsp:include page="../../global/header.jsp"/>	
+<jsp:include page="../../global/navi.jsp"/>
 <style type="text/css">
-div.box1 {
-    border: 5px solid powderblue;
-    padding: 30px;
-    margin: 0 auto;
-    width: 600px;
-    text-align: center;
-}
 	#member_detail{border: 1px solid gray; width: 90%;height: 300px; margin: 0 auto;border-collapse: collapse;}
 	#member_detail tr{border: 1px solid gray;height: 20%}
 	#member_detail tr td{border: 1px solid gray;}
 	.font_bold{font-weight: bold;}
 	.bg_color_yellow{background-color:yellow}
 </style>
-</head>
-<body>
+
 <div class="box">
 <!-- 	//id,age,name,regDate,gender,profileImg -->
 <%
 	MemberService service = MemberServiceImpl.getInstance();
 	MemberBean bean = service.findBy();
+	
 
 %>
 	<h2>회원 상세정보</h2>
@@ -71,9 +59,8 @@ div.box1 {
 	</table>
 	
 	
-		<br/><a href="<%=ctx %>/member/member_controller.jsp"><img src="<%=ctx %>/img/user.jpg" alt="user" style="width: 30px"/></a>
-		<a href="<%=ctx %>/index.jsp"><img src="<%=ctx %>/img/home.png" alt="home" style="width: 30px"/></a>
+		<br/><a href="<%=ctx %>/member/main.jsp"><img src="<%=ctx %>/img/user.jpg" alt="user" style="width: 30px"/></a>
 
 	</div>
-</body>
-</html>
+<jsp:include page = "../../global/footer.jsp"/>
+<jsp:include page = "../../global/end.jsp"/>

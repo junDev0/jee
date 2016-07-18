@@ -55,6 +55,7 @@ public class MemberServiceImpl implements MemberService{
 		if(session !=null){
 			bean.setId(session.getId());
 		if(dao.infoUpdate(bean) == 1){
+		session = this.findById(bean.getId());
 		result = "내정보 수정이 완료되었습니다.";
 		}
 		}
@@ -65,11 +66,9 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public String delete(MemberBean bean) {
 		String result = "";
-		if(session !=null){
-			bean.setId(session.getId());
+		bean.setId(session.getId());
 		if(dao.infoDelete(bean) == 1){
 		result = "계정 삭제가 완료되었습니다.";
-		}
 		}
 		return result;
 	}
@@ -131,6 +130,16 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int findByGen(String gender) {
 		return dao.genCount(gender);
+	}
+
+	@Override
+	public String logout(MemberBean bean) {
+		String result = "";
+		if(session.getId().equals(bean.getId()) && session.getPw().equals("bean.getPw()")){
+			session = null;
+			result = "로그아웃 완료";
+		}
+		return result;
 	}		
 
 

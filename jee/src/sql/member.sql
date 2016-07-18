@@ -12,7 +12,11 @@ create table member_bean(
 );
 select count(*) from member_bean;
 select * from member_bean;
-where id = 'you';
+where id = 'you' or age = 'you';
+
+select * from member_bean
+where like '%김%' ;
+
 
 insert into member_bean values('hong','1234','홍길동','2016-07-01','남성','881010-1','28');
 insert into member_bean values('kim','1234','홍길동','2015-07-01','남성','900910-1','26');

@@ -22,4 +22,5 @@ public interface MemberService {
 	public List<MemberBean> findByName(String name);
 	public int findByGen(String gender);
 	public String login(MemberBean bean);
+	public String logout(MemberBean bean);
 }

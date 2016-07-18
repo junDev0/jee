@@ -1,16 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-    String ctx = application.getContextPath();
-    %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>회원가입</title>
-<link rel="stylesheet" href="<%=ctx %>/css/member.css"/>
-</head>
-<body>
+<%String ctx = application.getContextPath();%>
+<jsp:include page="../../global/top.jsp"/>	
+<jsp:include page="../../global/header.jsp"/>	
+<jsp:include page="../../global/navi.jsp"/>
 	<div class="box">
 <embed src="<%=ctx %>/img/minjung.gif" style="width: 300px;height: 200px;">
 	<h2>회원탈퇴 페이지</h2><br/>
@@ -19,9 +12,8 @@
 		<input type="submit" value="확인"/>
   		<input type="reset" value="취소"/>
 	</form><br/>
-		<a href="<%=ctx %>/member/member_controller.jsp"><img src="<%=ctx %>/img/user.jpg" alt="user" style="width: 30px"/></a>
-		<a href="<%=ctx %>/index.jsp"><img src="../../img/home.png" alt="home" style="width: 30px"/></a>
+		<a href="<%=ctx %>/member/main.jsp"><img src="<%=ctx %>/img/user.jpg" alt="user" style="width: 30px"/></a>
 
 	</div>
-</body>
-</html>
+<jsp:include page = "../../global/footer.jsp"/>
+<jsp:include page = "../../global/end.jsp"/>

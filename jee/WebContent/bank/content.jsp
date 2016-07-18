@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-    String ctx = application.getContextPath();
-    %>    
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8" />
-	<title>Document</title>
+
 <style type="text/css">
 div {
     border: 5px solid powderblue;
@@ -16,8 +9,7 @@ div {
     width: 200px;
 }
 </style>	
-</head>
-<body>
+
 		<div id = "" class="memberClass box" style="text-align: center;"> <!-- 중괄호 -->
 	<h1>회원관리 !!</h1><br/>
 <!-- 
@@ -34,12 +26,10 @@ div {
 		<li><a href="service/update.jsp">내정보수정</a></li>
 		<li><a href="service/delete.jsp">탈퇴</a></li>
 		<li><a href="service/login.jsp">로그인</a></li>
-		<li><a href="service/login.jsp">로그아웃</a></li>
+		<li><a href="service/login_out.jsp">로그아웃</a></li>
 		<li><a href="service/list.jsp">리스트</a></li>
 		<li><a href="service/findById.jsp">검색</a></li>
 		<li><a href="service/count.jsp">회원수</a></li>
  	</ol>	
-	<a href="<%=ctx %>/index.jsp"><img src="<%=ctx %>/img/home.png" alt="home" style="width: 30px"/></a>
+	<a href="../index.jsp"><img src="../img/home.png" alt="home" style="width: 30px"/></a>
 	</div>
-</body>
-</html>

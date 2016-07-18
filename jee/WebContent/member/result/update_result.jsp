@@ -4,15 +4,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
-    
-<!doctype html>
 <% String ctx = application.getContextPath(); %>
-<link rel="stylesheet" href="<%=ctx %>/css/member.css"/>
-<html lang="en">
-
-<head>
-	<meta charset="UTF-8" />
-	<title>Document</title>
+<jsp:include page="../../global/top.jsp"/>	
+<jsp:include page="../../global/header.jsp"/>	
+<jsp:include page="../../global/navi.jsp"/>
 <style type="text/css">
 span.meta {
 	width: 200px;
@@ -20,8 +15,6 @@ span.meta {
 	float:left
 }
 </style>
-</head>
-<body>
 <div class="box">
 <%
 	MemberService service = MemberServiceImpl.getInstance();
@@ -45,14 +38,11 @@ span.meta {
 			<a href="<%=ctx %>/member/service/update.jsp">내정보 변경(비번,email) 하러가기</a>
 			<%
 		}else{
-			%>
-			<h2>회원정보 변경 완료! 다시 로그인을 해주세요.</h2><br/>
-			<a href="<%=ctx %>/member/service/login.jsp">로그인 하러가기</a>
-			<%
+			response.sendRedirect(ctx+"/member/service/detail.jsp");
 		}
 	}
 %>
 	
   		</div>
-</body>
-</html>
+<jsp:include page = "../../global/footer.jsp"/>
+<jsp:include page = "../../global/end.jsp"/>
